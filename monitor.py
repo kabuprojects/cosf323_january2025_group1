@@ -66,7 +66,7 @@ def monitor_apps_callback(dt):
             pass
         
         # Add a small delay to reduce CPU usage
-        time.sleep(1)  # Sleep for 1 second
+        #time.sleep(1)  # Sleep for 1 second (hashed to be unhashed)
 
 # Create a settings window to adjust user preferences (optional)
 # We can skip this for simplicity in the example.
