@@ -1,5 +1,6 @@
 import psutil
 import kivy
+from kivy.clock import Clock
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.label import Label
