@@ -28,13 +28,13 @@ def load_tips():
             "thunderbird.exe": "Tip: Check your email settings for security! 💼"
         }
 
-# Show a popup with the tip
+# Modified: Ensure popups are updated on the main UI thread
 def show_popup(message):
-    print(f"Showing popup with message: {message}")  # Debugging line to show message in console
+    Clock.schedule_once(lambda dt: _show_popup(message))
 
-    # Popup is created using Kivy's Popup widget
+def _show_popup(message):
     layout = BoxLayout(orientation='vertical', padding=10)
-    label = Label(text=message, color=(0, 0, 0, 1), font_size=18, halign="center", valign="middle")  # Black text
+    label = Label(text=message, font_size=18, halign="center", valign="middle")
     button = Button(text="Got it!", on_press=lambda *args: popup.dismiss())
 
     layout.add_widget(label)
@@ -42,6 +42,10 @@ def show_popup(message):
 
     popup = Popup(title="Cyber Knowledge", content=layout, size_hint=(None, None), size=(400, 200))
     popup.open()
+
+# Modified: Use a scheduled function instead of infinite loop
+app_last_shown = {}  # Dictionary to track last popup times
+
 
 # Monitor applications and show pop-ups based on app launch
 def monitor_apps():
