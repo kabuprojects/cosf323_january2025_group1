@@ -48,28 +48,22 @@ app_last_shown = {}  # Dictionary to track last popup times
 
 
 # Monitor applications and show pop-ups based on app launch
-def monitor_apps():
-    tips = load_tips()  # Load tips from the file
-    while True:
-        # Get list of all currently running processes
-        processes = psutil.process_iter(['pid', 'name'])
-        
-        for proc in processes:
-            try:
-                # Print the process name for debugging
-                print(f"Checking process: {proc.info['name']}")
-
-                # Check if the process name is in our target list
-                if proc.info['name'].lower() in [app.lower() for app in target_apps]:
-                    print(f"Detected: {proc.info['name']} with PID {proc.info['pid']}")
-
-                    # Show the pop-up with a contextual cybersecurity tip based on the app
-                    app_name = proc.info['name'].lower()
+def monitor_apps_callback(dt):
+    global app_last_shown
+    processes = psutil.process_iter(['pid', 'name'])
+    tips = load_tips()
+    
+    for proc in processes:
+        try:
+            app_name = proc.info['name'].lower()
+            if app_name in [app.lower() for app in target_apps]:
+                last_time = app_last_shown.get(app_name, 0)
+                if time.time() - last_time > 30:  # Avoid spamming popups within 30s
                     if app_name in tips:
                         show_popup(tips[app_name])
-
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-                pass
+                        app_last_shown[app_name] = time.time()
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
         
         # Add a small delay to reduce CPU usage
         time.sleep(1)  # Sleep for 1 second
