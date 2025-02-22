@@ -74,12 +74,15 @@ def monitor_apps_callback(dt):
 class CyberKnowledgeApp(App):
     def build(self):
         self.title = "Cyber Knowledge"
+        Clock.schedule_interval(monitor_apps_callback, 1)  # Runs every second
+        return Label(text="", font_size=24)  # Empty label for cleaner UI
+
         
         # Start the app monitor in a separate thread
-        threading.Thread(target=monitor_apps, daemon=True).start()
+      ##  threading.Thread(target=monitor_apps, daemon=True).start()
 
         # Remove the label text "Cyber Knowledge App is Running..." (no need for it)
-        return Label(text="", font_size=24)  # This will make the window not have unnecessary text
+     ##   return Label(text="", font_size=24)  # This will make the window not have unnecessary text
 
 if __name__ == "__main__":
     CyberKnowledgeApp().run()
