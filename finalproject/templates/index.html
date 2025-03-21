@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Education</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Hide all sections by default */
+        main section {
+            display: none;
+        }
+        /* Show active section */
+        .active {
+            display: block;
+        }
+        #score-display {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2em;
+            color: #ff6600;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #rank-display {
+            font-size: 1.5em;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        @media screen and (max-width: 600px) {
+            #score-display{
+               font-size: 1.75em;
+            }
+            #rank-display{
+                font-size: 1.25em;
+            }
+        }
+        .rank-Bronze { color: #CD7F32; }
+        .rank-Silver { color: #C0C0C0; }
+        .rank-Gold { color: #FFD700; }
+        .rank-Platinum { color: #E5E4E2; }
+        .rank-Diamond { color: #B9F2FF; }
+        .rank-Crimson { color: #DC143C; }
+         .rank-Iridescent {
+             background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .rank-Top250 { color: #800080; font-size: 1.2em; }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#" onclick="showSection('phishingSimulation')">Phishing Simulation</a></li>
+            <li><a href="#" onclick="showSection('passwordChecker')">Password Checker</a></li>
+            <li><a href="#" onclick="showSection('securityQuiz')">Security Quiz</a></li>
+            <li><a href="#" onclick="showSection('httpsEducation')">HTTPS Education</a></li>
+            <li><a href="#" onclick="showSection('urlAnalysis')">URL Analysis</a></li>
+            <li><a href="{{ url_for('login') }}" class="login-btn">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Cybersecurity Awareness Training</h1>
+        <h2>Welcome, {{ session['username'] }}!</h2>
+        <p id="score-display">Your Score: <span id="user-score">0</span></p>
+        <p id="rank-display">Rank: Unranked</p>
+
+    </header>
+
+    <main>
+        <section id="phishingSimulation">
+            <h2>!</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Phishing Simulation</h2>
+            <div style="text-align: center; font-family: 'Arial', sans-serif; color: #333; line-height: 1.4; max-width: 80%; margin: 0 auto; padding: 20px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <h3>what is phishing??</h3>
+                <h3>Phishing is a common type of cyber attack that targets individuals through email, text messages, phone calls, and other forms of communication. A phishing attack aims to trick the recipient into falling for the attacker’s desired action, such as revealing financial information, system login credentials, or other sensitive information.</h3>
+                <h3>how to beat phishing??</h3>
+                <h3>know how the phish works</h3>
+                <h3> here is a sample game of how to beat it or avoid phishing </h3>
+                <h3 style="font-size: 1.5rem; color: #2c3e50; font-weight: bold; margin-bottom: 1rem;">Beat the Phish!</h3>
+                <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
+                    Spot the phish, rank up, and become a cyber-hero! Here's how:
+                </p>
+                <ol style="list-style-type: decimal; padding-left: 2.5rem; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: #e74c3c;">Check the Email:</strong>  Find the red flags: typos, weird senders, threats, or sneaky links.
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: #e74c3c;">Pick Your Move:</strong>
+                        <ul style="list-style-type: disc; padding-left: 2rem; margin-top: 0.5rem;">
+                            <li style="margin-bottom: 0.5rem;"><strong style="color: #3498db;">Report it!</strong> (It's a trap!)</li>
+                            <li style="margin-bottom: 0.5rem;"><strong style="color: #3498db;">Accept it.</strong> (Looks safe!)</li>
+                             <li style="margin-bottom: 0.5rem;"><strong style="color: #3498db;">Ignore it.</strong> (When in doubt!)</li>
+                        </ul>
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: #e74c3c;">Get Feedback:</strong> Learn if you nailed it!
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: #e74c3c;">Score & Rank Up:</strong>  Right answers = more points = higher rank!
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: #e74c3c;">Next Email, Go!</strong> Keep playing, keep winning!
+                    </li>
+                </ol>
+                </p>
+            </div>
+            
+                
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Phishing Game beggins</h2>
+      
+            <div id="phishingContent" class="loading">Loading...</div>
+            <div id="phishingActions">
+                <button id="reportButton">Report</button>
+                <button id="acceptButton">Accept</button>
+                <button id="ignoreButton">Ignore</button>
+            </div>
+            <div id="phishingFeedback"></div>
+            <div class="overlay" id="phishingOverlay">
+                <div id="overlayText"></div>
+                <button id="nextEmailButton">Next Email</button>
+            </div>
+        </section>
+
+        <section id="passwordChecker">
+            <h2>Password Strength Checker</h2>
+            <p style="text-align: center; font-weight: bold; font-size: 1.1em; color: #007bff;">Test your knowledge with our Security Quiz and learn how to defend against cyber threats!</p>
+            <p style="text-align: center; font-weight: bold; font-size: 1.1em; color: #007bff;">Answer correctly to earn points, increase your score, and rise through the ranks.</p>
+            <p style="text-align: center; font-weight: bold; font-size: 1.1em; color: #007bff;"> Sharpen your cybersecurity skills and become a digital defense expert!</p>
+
+            <div style="display: flex; align-items: center;">
+                <input type="password" id="passwordInput" placeholder="Enter your password" style="margin-right: 10px;">
+                <input type="checkbox" id="showPassword">
+                <label for="showPassword">Show Password</label>
+            </div>
+            <div id="passwordStrength"><div></div></div>
+            <p id="passwordStrengthText"></p>
+            <div style="margin-top: 15px; font-size: 0.9em;">
+                <p>A good password should:</p>
+                <ul style="list-style-position: inside; padding-left: 0;">
+                    <li>Be at least 12 characters long.</li>
+                    <li>Include a mix of uppercase and lowercase letters.</li>
+                    <li>Include at least one number.</li>
+                    <li>Include at least one special character (e.g., !@#$%^&*).</li>
+                    <li>Not be a word or phrase found in a dictionary.</li>
+                    <li>Not be based on personal information (e.g., birthday, name).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="securityQuiz">
+            <h2>Security Quiz</h2>
+            <div style="text-align: center;
+            font-family: 'Arial', sans-serif;
+            color: #fff; /* White text for better contrast on the background */
+            line-height: 1.4;
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 25px; /* Slightly increased padding */
+            border-radius: 15px; /* More rounded corners */
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background, more fun */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* Stronger shadow */
+            animation: pulse 2s infinite alternate;  /* Add a subtle pulse animation */
+            border: 2px solid #fff; /* Add a border */
+            ">
+    <p style="margin-bottom: 1.2rem; /* Increased margin */
+               font-size: 1.2rem; /* Slightly larger text */
+               text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Text shadow for better readability */
+               ">
+        <span style="font-size: 1.4rem; font-weight: bold;">Test Your Security Smarts!</span><br>
+        Check your password strengths.  !!become a Digital Defense Expert!
+    </p>
+    <style>
+      @keyframes pulse {
+        from { transform: scale(1); }
+        to { transform: scale(1.04); } /* Slightly larger on pulse */
+      }
+    </style>
+    
+</div>
+<h1>!</h1>
+
+            <div id="quizCategories">
+                <button data-category="easy">Easy</button>
+                <button data-category="medium">Medium</button>
+                <button data-category="hard">Hard</button>
+            </div>
+            <div id="quizQuestions" class="hidden">
+                <div id="quizQuestion" class="loading">Loading...</div>
+                <div id="quizOptions"></div>
+                <div id="quizFeedback" class="quiz-feedback"></div>
+                <button id="nextQuestionButton" class="hidden">Next Question</button>
+                <button id="retakeQuizButton" class="hidden">Retake Quiz</button>
+            </div>
+        </section>
+
+        <section id="httpsEducation">
+            <h2>HTTPS EDUCATION</h2>
+            <div style="width: 80%; margin: 20px auto; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+                <h2 style="color: #0078d7; font-size: 24px; margin-bottom: 15px;">HTTPS: Your Digital Superhero Cape!</h2>
+                <div  style="padding: 20px; border: 2px solid #0078d7; border-radius: 10px; background-color: #e6f7ff; font-family: 'Arial', sans-serif; line-height: 1.6;">
+              
+                    <p style="font-size: 18px; color: #333;">
+                        Welcome, Internet Explorer! You're about to level up your web-surfing skills by learning about HTTPS, the secret code that keeps your online adventures safe! Think of it as your digital superhero cape!
+                    </p>
+              
+                    <div style="background-color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="color: #0056b3; margin-bottom: 10px;">Mission 1: Decrypting the 'S'</h3>
+                        <p style="color: #555;">
+                            What's that 'S' at the end of HTTPS? It stands for "Secure"! Like a secret handshake, it tells your browser and the website to speak in a code only they understand.
+                        </p>
+                        <img src="https://via.placeholder.com/100" alt="Lock and Key" style="max-width: 100px; display: block; margin: 10px auto;">
+                        <p style="color: #555;">
+                            Imagine sending a secret message in a locked box – that's HTTPS! It's like having a digital padlock on your data.
+                        </p>
+                    </div>
+              
+                    <div style="background-color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="color: #0056b3; margin-bottom: 10px;">Mission 2: Foiling the Data Thieves</h3>
+                        <p style="color: #555;">
+                            Without HTTPS, your information is like a postcard – anyone can read it! But HTTPS turns it into a super-secret spy message.
+                        </p>
+                        <ul style="list-style-type: disc; margin-left: 20px; color: #555;">
+                            <li><strong>Password Protection:</strong> Keep those sneaky password thieves away!</li>
+                            <li><strong>Credit Card Safety:</strong> Shop online without fear!</li>
+                            <li><strong>Personal Data Shield:</strong> Protect your secrets from prying eyes!</li>
+                        </ul>
+                        <p style="color: #555;">
+                            Think of HTTPS as your personal bodyguard, keeping your data safe from online villains!
+                        </p>
+                    </div>
+              
+                    <div style="background-color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="color: #0056b3; margin-bottom: 10px;">Mission 3: The Certificate Quest</h3>
+                        <p style="color: #555;">
+                            How does HTTPS work its magic? It uses special digital certificates! These certificates verify that the website is who it says it is.
+                        </p>
+                        <p style="color: #555;">
+                            It's like showing your ID to get into a super-secret club. The website shows its digital ID, and your browser checks it out!
+                        </p>
+                    </div>
+              
+                    <div style="background-color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3 style="color: #0056b3; margin-bottom: 10px;">Bonus Mission: Level Up Your Knowledge!</h3>
+                        <p style="color: #555;">
+                            Want to learn more? Check out this awesome video about HTTPS!
+                        </p>
+                        <a href="https://www.youtube.com/watch?v=EjqkWBqE9Is" target="_blank" style="color: #0078d7; text-decoration: none;">HTTPS Explained - Computerphile (YouTube)</a>
+                        <p style="color: #555;">
+                            And this other one too!
+                        </p>
+                        <a href="https://www.youtube.com/watch?v=XQi6l_9s6hQ" target="_blank" style="color: #0078d7; text-decoration: none;">How HTTPS Works (Animation)</a>
+                    </div>
+              
+                    <p style="font-size: 16px; color: #333; text-align: center;">
+                        Congratulations, Internet Explorer! You've unlocked the secrets of HTTPS! Now go forth and browse safely!
+                    </p>
+                </div>
+              </div>
+
+            <section id="httpsEducation" style="margin-bottom: 20px;">
+                <p style="font-size: 14px; color: #555; margin-top: 20px;">
+                    © 2025 Cybersecurity Education. All rights reserved.<br>
+                    Developed by Kabarak Computer Science Department.
+                </p>
+            </section>
+            
+            <div id="httpsContent" class="loading"></div>
+        </section>
+
+        <section id="urlAnalysis">
+            <h2>URL Analysis Tool</h2>
+            <input type="text" id="urlInput" placeholder="Enter URL to analyze">
+            <button id="analyzeButton">Analyze URL</button>
+            <div id="urlAnalysisResult" class="loading"></div>
+        </section>
+
+        <section id="reportPhishing">
+            <h2>Report Phishing</h2>
+            <textarea id="phishingReport" placeholder="Describe the phishing attempt (email, message, etc.)"></textarea>
+            <button id="reportButton">Submit Report</button>
+            <div id="reportFeedback"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Cybersecurity Education. All rights reserved.Developed by Kabarak computer security experts</p>
+    </footer>
+
+    <script>
+        let userScore = 0;
+        const userScoreDisplayElement = document.getElementById("user-score");
+        const rankDisplay = document.getElementById("rank-display");
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll("main section").forEach(section => {
+                section.classList.remove("active");
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.add("active");
+             if (sectionId === "phishingSimulation") {
+                resetPhishingSimulation();
+            } else if (sectionId === "securityQuiz") {
+                resetQuiz();
+            } else if (sectionId === "urlAnalysis"){
+                resetUrlAnalysis();
+            } else if (sectionId === "httpsEducation"){
+                resetHttpsEducation();
+            }
+        }
+
+
+
+        function updateUserScoreDisplay() {
+            if (userScoreDisplayElement) {
+                userScoreDisplayElement.textContent = userScore;
+            }
+            updateScoreAndRank(userScore);
+        }
+
+        function updateScoreAndRank(score) {
+            if (userScoreDisplayElement) {
+                userScoreDisplayElement.textContent = score;
+            }
+
+            const { rank, class: rankClass } = getRank(score);
+            rankDisplay.textContent = `Rank: ${rank}`;
+            rankDisplay.className = rankClass;
+        }
+
+        function getRank(score) {
+            if (score >= 100000)      return { rank: "Top 250", class: "rank-Top250" };
+            else if (score >= 250)  return { rank: "Iridescent", class: "rank-Iridescent" };
+            else if (score >= 180)  return { rank: "Crimson", class: "rank-Crimson" };
+            else if (score >= 140)  return { rank: "Diamond", class: "rank-Diamond" };
+            else if (score >= 100) return { rank: "Platinum", class: "rank-Platinum" };
+            else if (score >= 75)   return { rank: "Gold", class: "rank-Gold" };
+            else if (score >= 45)   return { rank: "Silver", class: "rank-Silver" };
+            else if (score >= 10)    return { rank: "Bronze", class: "rank-Bronze" };
+            else                       return { rank: "Unranked", class: "" };
+        }
+
+
+
+        // Phishing Simulation Logic
+        const phishingContent = document.getElementById("phishingContent");
+        const reportButton = document.getElementById("reportButton");
+        const acceptButton = document.getElementById("acceptButton");
+        const ignoreButton = document.getElementById("ignoreButton");
+        const phishingFeedback = document.getElementById("phishingFeedback");
+        const phishingOverlay = document.getElementById("phishingOverlay");
+        const overlayText = document.getElementById("overlayText");
+        const nextEmailButton = document.getElementById("nextEmailButton");
+
+        let currentEmailIndex = 0;
+        let emails = [];
+        let hasClicked = false;
+
+
+        function resetPhishingSimulation() {
+            currentEmailIndex = 0;
+            emails = [];
+            hasClicked = false;
+            phishingContent.classList.remove('finished');
+            phishingFeedback.textContent = '';
+            phishingFeedback.classList.remove('bg-green-100', 'bg-red-100', 'border-green-500', 'border-red-500');
+            phishingOverlay.classList.add('hidden');
+            phishingContent.classList.remove('loading');
+            loadPhishingEmails();
+        }
+
+
+        async function loadPhishingEmails() {
+            // Simulate fetching emails from a server or a local array
+            try {
+                // Replace this with your actual fetch logic
+                const response = await fetch("/api/phishing"); //  Corrected URL
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                emails = data; // Assign the fetched data to the emails array
+                phishingContent.classList.remove("loading"); // Remove loading message
+                displayEmail(); // Display the first email
+            } catch (error) {
+                phishingContent.textContent = "Failed to load emails. Please try again later.";
+                console.error("Error loading phishing emails:", error);
+            }
+        }
+
+        function displayEmail() {
+            hasClicked = false;
+            phishingFeedback.textContent = "";
+            phishingFeedback.classList.remove('bg-green-100', 'bg-red-100', 'border-green-500', 'border-red-500');
+            if (currentEmailIndex < emails.length) {
+                const email = emails[currentEmailIndex];
+                phishingContent.innerHTML = `<h3 class="text-lg font-semibold mb-2">${email.subject}</h3>
+                                           <p class="text-gray-700 mb-2">From: ${email.from}</p>
+                                           <p class="text-gray-700 mb-4">${email.body}</p>`;
+            } else {
+                phishingContent.textContent = "Simulation complete!";
+                phishingContent.classList.add('finished');
+                phishingOverlay.classList.remove('hidden');
+                overlayText.textContent = `You have completed the simulation. Your final score is ${userScore}.`;
+                nextEmailButton.textContent = "Restart Simulation";
+
+            }
+        }
+
+        function handleReport() {
+            if (hasClicked) return;
+            hasClicked = true;
+            const email = emails[currentEmailIndex];
+            if (email.correctAction === 'report') {
+                updateScore(150);
+                phishingFeedback.textContent = "Correct! This was a phishing email.";
+                phishingFeedback.classList.add("bg-green-100", "border-green-500", "text-green-700");
+            } else {
+                phishingFeedback.textContent = "Incorrect! This was not a phishing email.";
+                phishingFeedback.classList.add("bg-red-100", "border-red-500", "text-red-700");
+            }
+            showNextEmailButton();
+        }
+
+        function handleAccept() {
+            if (hasClicked) return;
+            hasClicked = true;
+            const email = emails[currentEmailIndex];
+            if (email.correctAction === 'accept') {
+                updateScore(150);
+                phishingFeedback.textContent = "Correct! You accepted a legitimate email.";
+                phishingFeedback.classList.add("bg-green-100", "border-green-500", "text-green-700");
+            } else {
+                phishingFeedback.textContent = "Incorrect! This was a phishing email.";
+                phishingFeedback.classList.add("bg-red-100", "border-red-500", "text-red-700");
+            }
+            showNextEmailButton();
+        }
+
+        function handleIgnore() {
+            if (hasClicked) return;
+            hasClicked = true;
+            const email = emails[currentEmailIndex];
+             if (email.correctAction === 'ignore') {
+                updateScore(150);
+                phishingFeedback.textContent = "Correct! You ignored a suspicious email.";
+                phishingFeedback.classList.add("bg-green-100", "border-green-500", "text-green-700");
+            } else {
+                phishingFeedback.textContent = "Incorrect! This was a phishing email.";
+                phishingFeedback.classList.add("bg-red-100", "border-red-500", "text-red-700");
+            }
+            showNextEmailButton();
+        }
+
+        function showNextEmailButton() {
+            nextEmailButton.classList.remove("hidden");
+            phishingOverlay.classList.remove('hidden');
+            overlayText.textContent = "Click 'Next Email' to continue.";
+        }
+
+
+        function nextEmail() {
+            currentEmailIndex++;
+            phishingOverlay.classList.add('hidden');
+            nextEmailButton.classList.add("hidden");
+            displayEmail();
+        }
+
+        // Event Listeners for Phishing Simulation
+        reportButton.addEventListener("click", handleReport);
+        acceptButton.addEventListener("click", handleAccept);
+        ignoreButton.addEventListener("click", handleIgnore);
+        nextEmailButton.addEventListener("click", nextEmail);
+
+        // Initial load of phishing emails
+        loadPhishingEmails();
+
+
+
+        // Password Checker Logic
+        const passwordInput = document.getElementById("passwordInput");
+        const passwordStrength = document.getElementById("passwordStrength");
+        const passwordStrengthText = document.getElementById("passwordStrengthText");
+        const showPasswordCheckbox = document.getElementById("showPassword");
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            let requirements = [];
+
+            if (password.length >= 8) {
+                strength += 20;
+                requirements.push("At least 8 characters");
+            }
+            if (password.length >= 12) {
+                strength += 20;
+                requirements.push("At least 12 characters");
+            }
+            if (password.match(/[a-z]/)) {
+                strength += 10;
+                requirements.push("Lowercase letters");
+            }
+            if (password.match(/[A-Z]/)) {
+                strength += 10;
+                requirements.push("Uppercase letters");
+            }
+            if (password.match(/\d/)) {
+                strength += 10;
+                requirements.push("Numbers");
+            }
+            if (password.match(/[^a-zA-Z0-9\s]/)) {
+                strength += 10;
+                requirements.push("Special characters");
+            }
+
+            let strengthText = "";
+            let barColor = "";
+            if (strength < 40) {
+                strengthText = "Weak";
+                barColor = "red";
+            } else if (strength < 60) {
+                strengthText = "Moderate";
+                barColor = "yellow";
+            } else if (strength < 80) {
+                strengthText = "Strong";
+                barColor = "green";
+            } else {
+                strengthText = "Very Strong";
+                barColor = "blue";
+            }
+
+            passwordStrengthText.textContent = strengthText;
+            passwordStrength.querySelector("div").style.width = `${strength}%`;
+            passwordStrength.querySelector("div").style.backgroundColor = barColor;
+
+            let missingRequirements = [];
+            if (password.length > 0 && strength < 100) {
+                missingRequirements = requirements.filter(req => {
+                    if (req === "At least 8 characters") return password.length < 8;
+                    if (req === "At least 12 characters") return password.length < 12;
+                    if (req === "Lowercase letters") return !password.match(/[a-z]/);
+                    if (req === "Uppercase letters") return !password.match(/[A-Z]/);
+                    if (req === "Numbers") return !password.match(/\d/);
+                    if (req === "Special characters") return !password.match(/[^a-zA-Z0-9\s]/);
+                    return false;
+                });
+            }
+
+            if (missingRequirements.length > 0) {
+                passwordStrengthText.textContent += `. Missing: ${missingRequirements.join(", ")}`;
+            }
+        }
+
+        passwordInput.addEventListener("input", () => {
+            checkPasswordStrength(passwordInput.value);
+        });
+
+        showPasswordCheckbox.addEventListener("change", () => {
+            passwordInput.type = showPasswordCheckbox.checked ? "text" : "password";
+        });
+
+
+
+        // Security Quiz Logic
+        const quizCategories = document.getElementById("quizCategories");
+        const quizQuestionsContainer= document.getElementById("quizQuestions");
+        const quizQuestionElement = document.getElementById("quizQuestion");
+        const quizOptionsElement = document.getElementById("quizOptions");
+        const quizFeedback = document.getElementById("quizFeedback");
+        const nextQuestionButton = document.getElementById("nextQuestionButton");
+        const retakeQuizButton = document.getElementById("retakeQuizButton");
+
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let selectedAnswer = null;
+        let quizScore = 0;
+        let currentCategory = null;
+
+        function resetQuiz() {
+            currentQuestions = [];
+            currentQuestionIndex = 0;
+            selectedAnswer = null;
+            quizScore = 0;
+            currentCategory = null;
+
+            quizQuestionsContainer.classList.add("hidden");
+            quizCategories.classList.remove("hidden");
+            quizFeedback.textContent = "";
+            quizFeedback.className = "quiz-feedback";
+            nextQuestionButton.classList.add("hidden");
+            retakeQuizButton.classList.add("hidden");
+            quizQuestionElement.classList.remove('loading');
+            quizOptionsElement.innerHTML = '';
+        }
+
+
+        quizCategories.addEventListener("click", async (event) => {
+            if (event.target.tagName === "BUTTON") {
+                currentCategory = event.target.dataset.category;
+                quizCategories.classList.add("hidden");
+                quizQuestionsContainer.classList.remove("hidden");
+                await loadQuizQuestions(currentCategory);
+            }
+        });
+
+        async function loadQuizQuestions(category) {
+            try {
+                // Replace this with your actual fetch logic
+                const response = await fetch(`/api/quiz?category=${category}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                currentQuestions = data;
+                quizQuestionElement.classList.remove('loading');
+                displayQuizQuestion();
+            } catch (error) {
+                quizQuestionElement.textContent = "Failed to load quiz questions. Please try again later.";
+                console.error("Error loading quiz questions:", error);
+            }
+        }
+
+        function displayQuizQuestion() {
+            quizFeedback.textContent = "";
+            quizFeedback.className = "quiz-feedback";
+            nextQuestionButton.classList.add("hidden");
+            retakeQuizButton.classList.add("hidden");
+            selectedAnswer = null;
+            quizOptionsElement.innerHTML = "";
+
+            if (currentQuestionIndex < currentQuestions.length) {
+                const questionData = currentQuestions[currentQuestionIndex];
+                quizQuestionElement.textContent = questionData.question;
+
+                const options = questionData.options;
+                options.forEach((option, index) => {
+                    const optionButton = document.createElement("button");
+                    optionButton.textContent = option;
+                    optionButton.classList.add("bg-gray-200", "hover:bg-gray-300", "text-gray-700", "font-bold", "py-2", "px-4", "rounded", "w-full", "text-left");
+                    optionButton.dataset.option = option;
+                    optionButton.addEventListener("click", () => handleOptionSelect(option));
+                    quizOptionsElement.appendChild(optionButton);
+                });
+            } else {
+                quizQuestionElement.textContent = "Quiz completed!";
+                quizOptionsElement.innerHTML = "";
+                retakeQuizButton.classList.remove("hidden");
+                displayQuizResult();
+            }
+        }
+
+        function handleOptionSelect(option) {
+            selectedAnswer = option;
+            const correctOption = currentQuestions[currentQuestionIndex].correctAnswer;
+            const chosenButton = Array.from(quizOptionsElement.children).find(child => child.textContent === option);
+
+            if (selectedAnswer === correctOption) {
+                quizScore += 150;
+                quizFeedback.textContent = "Correct!";
+                quizFeedback.classList.add("quiz-feedback", "correct");
+                updateScore(150);
+            } else {
+                quizFeedback.textContent = "Incorrect!";
+                quizFeedback.classList.add("quiz-feedback", "incorrect");
+            }
+
+             Array.from(quizOptionsElement.children).forEach(button => {
+                button.disabled = true;
+                if (button.textContent === correctOption){
+                     button.classList.remove("bg-gray-200", "hover:bg-gray-300");
+                     button.classList.add("bg-green-200");
+                }
+                if (button.textContent === selectedAnswer && selectedAnswer !== correctOption){
+                    button.classList.remove("bg-gray-200", "hover:bg-gray-300");
+                    button.classList.add("bg-red-200");
+                }
+            });
+            nextQuestionButton.classList.remove("hidden");
+        }
+
+        function displayQuizResult() {
+            quizOptionsElement.textContent = `Your final score is ${quizScore} out of ${currentQuestions.length * 10}.`;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            displayQuizQuestion();
+        }
+
+        function retakeQuiz() {
+            resetQuiz();
+            quizCategories.classList.remove("hidden");
+        }
+
+        nextQuestionButton.addEventListener("click", nextQuestion);
+        retakeQuizButton.addEventListener("click", retakeQuiz);
+
+
+
+        // HTTPS Education Logic
+        const httpsContentDiv = document.getElementById("httpsContent");
+
+        function resetHttpsEducation() {
+            httpsContentDiv.classList.remove('loading');
+            httpsContentDiv.innerHTML = '';
+            loadHttpsContent();
+        }
+
+        async function loadHttpsContent() {
+            try {
+                // Replace this with your actual fetch logic
+                const response = await fetch("/api/https");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                httpsContentDiv.classList.remove("loading");
+                httpsContentDiv.innerHTML = data.content;
+            } catch (error) {
+                httpsContentDiv.textContent = "Failed to load HTTPS education content. Please try again later.";
+                console.error("Error loading HTTPS content:", error);
+            }
+        }
+
+
+
+        // URL Analysis Logic
+        const urlInput = document.getElementById("urlInput");
+        const analyzeButton = document.getElementById("analyzeButton");
+        const urlAnalysisResult = document.getElementById("urlAnalysisResult");
+
+        function resetUrlAnalysis(){
+            urlAnalysisResult.innerHTML = '';
+            urlAnalysisResult.classList.remove('loading');
+        }
+
+        analyzeButton.addEventListener("click", async () => {
+            const url = urlInput.value;
+            if (!url) {
+                urlAnalysisResult.textContent = "Please enter a URL to analyze.";
+                urlAnalysisResult.classList.remove('loading');
+                return;
+            }
+
+            urlAnalysisResult.textContent = "Analyzing...";
+            try {
+                // Replace this with your actual fetch logic
+                const response = await fetch(`/api/url?url=${encodeURIComponent(url)}`);
+if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                urlAnalysisResult.classList.remove('loading');
+                displayUrlAnalysisResult(data);
+            } catch (error) {
+                urlAnalysisResult.textContent = "Failed to analyze URL. Please try again later.";
+                console.error("Error analyzing URL:", error);
+            }
+        });
+
+        function displayUrlAnalysisResult(result) {
+            let resultHTML = `<h3 class="text-lg font-semibold mb-2">Analysis of ${result.url}</h3>`;
+            resultHTML += `<p class="mb-2"><span class="font-semibold">Valid URL:</span> ${result.isValid ? 'Yes' : 'No'}</p>`;
+            resultHTML += `<p class="mb-2"><span class="font-semibold">HTTPS:</span> ${result.isHttps ? 'Yes' : 'No'}</p>`;
+            resultHTML += `<p class="mb-2"><span class="font-semibold">Domain:</span> ${result.domain}</p>`;
+            resultHTML += `<p class="mb-2"><span class="font-semibold">IP Address:</span> ${result.ipAddress}</p>`;
+            resultHTML += `<p class="mb-2"><span class="font-semibold">Is Phishing:</span> ${result.isPhishing ? 'Yes' : 'No'}</p>`;
+            urlAnalysisResult.innerHTML = resultHTML;
+        }
+
+
+
+
+        // Report Phishing Logic
+        const phishingReportInput = document.getElementById("phishingReport");
+        const reportSubmitButton = document.getElementById("reportButton");
+        const reportFeedback = document.getElementById("reportFeedback");
+
+        reportSubmitButton.addEventListener("click", async () => {
+            const reportText = phishingReportInput.value;
+            if (!reportText) {
+                reportFeedback.textContent = "Please describe the phishing attempt.";
+                reportFeedback.classList.add("bg-red-100", "border-red-500", "text-red-700");
+                return;
+            }
+
+            reportFeedback.textContent = "Submitting report...";
+            try {
+                // Replace this with your actual fetch logic
+                const response = await fetch("/api/report", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ report: reportText }),
+                });
+                const data = await response.json();
+                reportFeedback.textContent = data.message;
+                reportFeedback.classList.remove("bg-red-100", "border-red-500", "text-red-700");
+                reportFeedback.classList.add("bg-green-100", "border-green-500", "text-green-700");
+                phishingReportInput.value = "";
+            } catch (error) {
+                reportFeedback.textContent = "Failed to submit report. Please try again later.";
+                reportFeedback.classList.remove("bg-green-100", "border-green-500", "text-green-700");
+                reportFeedback.classList.add("bg-red-100", "border-red-500", "text-red-700");
+                console.error("Error submitting report:", error);
+            }
+        });
+
+
+        function updateScore(points) {
+            userScore += points;
+            updateUserScoreDisplay();
+        }
+
+        //Initial call
+        showSection('phishingSimulation');
+        updateUserScoreDisplay(userScore);
+
+    </script>
+</body>
+</html>

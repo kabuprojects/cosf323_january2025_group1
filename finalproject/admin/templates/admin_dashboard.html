@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Dashboard</h1>
+
+        <section class="data-section">
+            <h2>Email Management</h2>
+            <div class="data-actions">
+                <button id="add-email">Add Email</button>
+                <button id="view-emails">View Emails</button>
+            </div>
+            <div id="email-data" class="data-display">
+            </div>
+
+            <div id="add-email-form" style="display: none;">
+                <h3>Add New Email</h3>
+                <form id="email-form">
+                    <input type="text" id="email-from" placeholder="From">
+                    <input type="text" id="email-to" placeholder="To">
+                    <input type="text" id="email-subject" placeholder="Subject">
+                    <textarea id="email-body" placeholder="Body"></textarea>
+                    <input type="text" id="email-correctAction" placeholder="Correct Action (accept/report)">
+                    <button id="submit-email">Submit Email</button>
+                </form>
+            </div>
+
+        </section>
+
+        <section class="data-section">
+            <h2>HTTPS Content Management</h2>
+            <div class="data-actions">
+                <button id="add-https">Add Content</button>
+                <button id="view-https">View Content</button>
+            </div>
+            <div id="https-data" class="data-display">
+            </div>
+
+            <div id="add-https-form" style="display: none;">
+                <h3>Add HTTPS Content</h3>
+                <form id="https-form">
+                    <input type="text" id="https-heading" placeholder="Heading">
+                    <textarea id="https-videos" placeholder="Video URLs (comma separated)"></textarea>
+                    <button id="submit-https">Submit HTTPS Content</button>
+                </form>
+            </div>
+
+        </section>
+
+        <section class="data-section">
+            <h2>Quiz Question Management</h2>
+            <div class="data-actions">
+                <button id="add-quiz">Add Question</button>
+                <button id="view-quiz">View Questions</button>
+            </div>
+            <div id="quiz-data" class="data-display">
+            </div>
+
+            <div id="add-quiz-form" style="display: none;">
+                <h3>Add Quiz Question</h3>
+                <form id="quiz-form">
+                    <input type="text" id="quiz-category" placeholder="Category (easy/medium/hard)">
+                    <textarea id="quiz-question" placeholder="Question"></textarea>
+                    <textarea id="quiz-options" placeholder="Options (comma separated)"></textarea>
+                    <input type="number" id="quiz-correctAnswerIndex" placeholder="Correct Answer Index">
+                    <button id="submit-quiz">Submit Quiz Question</button>
+                </form>
+            </div>
+
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='admin_dashboard.js') }}"></script>
+</body>
+</html>

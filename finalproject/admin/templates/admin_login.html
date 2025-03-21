@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Basic styling for the login page */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <input type="text" id="username" placeholder="Admin Username" required>
+        <input type="password" id="password" placeholder="Admin Password" required>
+        <button onclick="adminLogin()">Login as Admin</button>
+        <p class="error" id="error-message"></p>
+    </div>
+
+    <script>
+        function adminLogin() {
+            // Hardcoded credentials
+            const ADMIN_USERNAME = "admin";
+            const ADMIN_PASSWORD = "password"; // Changed to the correct password
+
+            // Get input values
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let errorMessage = document.getElementById("error-message");
+
+            // Check credentials
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                // Save login state in local storage (optional, for session persistence)
+                localStorage.setItem("admin_logged_in", "true");
+
+                // Redirect to the admin dashboard
+                window.location.href = "/admin_dashboard"; // Changed to the correct route
+            } else {
+                errorMessage.textContent = "Invalid credentials. Try again.";
+            }
+        }
+    </script>
+
+</body>
+</html>
